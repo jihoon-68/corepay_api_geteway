@@ -18,7 +18,7 @@ public class SecurityConfig {
     //비밀번호를 안전하게 암호화하기 위한 BCrypt 빈 등록
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(10);
     }
 
     //HTTP 보안 필터 체인 설정
@@ -37,7 +37,8 @@ public class SecurityConfig {
 
                 // 3. 인가(Authorization) 정책 설정
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // 로그인, 가입은 모두 허용
+                        .requestMatchers("/api/auth/**").permitAll() // 로그인은 허용
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 );
 
