@@ -1,5 +1,6 @@
-package org.example.corepayauthservice.domain;
+package org.example.corepayauthservice.infrastructure.db;
 
+import org.example.corepayauthservice.domain.AuthUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
