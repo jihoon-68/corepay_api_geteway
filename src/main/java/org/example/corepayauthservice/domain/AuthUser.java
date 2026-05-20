@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "auth_users")
 @Getter
@@ -13,7 +15,6 @@ import lombok.NoArgsConstructor;
 public class AuthUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true, length = 100)
@@ -27,11 +28,18 @@ public class AuthUser {
     private Role role;
 
     @Builder
-    public AuthUser(String email, String password, Role role) {
+    public AuthUser(Long id ,String email, String password, Role role) {
+        this.id = id;
         this.email = email;
         this.password = password;
         // 권한이 안 들어오면 기본값으로 일반 유저(USER) 설정
-        this.role = role != null ? role : Role.ROLE_USER;
+        this.role = role != null ? role : Role.USER;
+    }
+
+    public void updatePassword(String password){
+        if(password != null && !Objects.equals(this.password, password)){
+            this.password =password;
+        }
     }
 
 }
