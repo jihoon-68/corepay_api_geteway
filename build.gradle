@@ -15,6 +15,7 @@ java {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -22,17 +23,29 @@ dependencies {
     // 웹 및 보안
     implementation 'org.springframework.boot:spring-boot-starter-web'      // REST API 개발용
     implementation 'org.springframework.boot:spring-boot-starter-security' // 비밀번호 암호화 및 보안
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     // 데이터베이스 연동
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA (ORM)
     runtimeOnly 'com.mysql:mysql-connector-j'                              // MySQL 드라이버
+
+    // 공통 로직 라이브러리
+    implementation 'org.example:corepay-common:1.0.0'
+
+    // 카프카
+    implementation 'org.springframework.boot:spring-boot-starter-kafka'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
 
     // 편의성 유틸리티
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-flyway'
     implementation 'org.flywaydb:flyway-mysql'
-    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    implementation 'me.paulschwarz:spring-dotenv:4.0.0'
+
+    // 6. Actuator & Prometheus
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
 
     // JWT
     implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
